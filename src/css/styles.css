@@ -2,54 +2,96 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
+  background-color: #f0f4f8;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
+#app {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
 .todo-container {
   background: #ffffff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 20px;
-  max-width: 400px;
+  max-width: 360px;
   width: 100%;
+  transition: transform 0.3s ease-in-out;
 }
 
-h1 {
+.todo-container:hover {
+  transform: scale(1.05);
+}
+
+.todo-container h1 {
   text-align: center;
-  color: #333;
+  color: #4a90e2;
   margin-bottom: 20px;
+  padding: 10px;
+  border: 2px solid #4a90e2;
+  border-radius: 5px;
+  font-size: 20px;
+  background-color: #e8f4ff;
 }
 
 .todo-container div {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 15px;
 }
 
-.todo-input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 14px;
+.todo-input,
+.price-input {
+  padding: 12px;
+  border: 1px solid #dcdfe3;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 70%;
+}
+
+.price-input {
+  width: 80px;
 }
 
 .add-btn {
-  background-color: #4caf50;
+  background-color: #56c5f0;
   color: #ffffff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 14px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .add-btn:hover {
-  background-color: #45a049;
+  background-color: #4ba3cc;
+}
+
+.totals {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.total-price,
+.spent-price {
+  font-size: 18px;
+  color: #56c5f0;
+}
+
+.total-price {
+  text-align: right;
 }
 
 .todo-list {
@@ -62,28 +104,61 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-  padding: 10px;
-  background: #f9f9f9;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  padding: 12px;
+  background: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease;
+}
+
+.todo-item:hover {
+  background-color: #e8f4ff;
 }
 
 .todo-item span {
   word-break: break-word;
+  color: #333;
 }
 
 .delete-btn {
-  background-color: #ff4d4d;
+  background-color: #ff7f7f;
   color: #ffffff;
   border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .delete-btn:hover {
-  background-color: #e43d3d;
+  background-color: #e55555;
+}
+
+@media (max-width: 768px) {
+  #app {
+    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .todo-container {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .todo-container {
+    max-width: 100%;
+  }
+
+  .todo-input,
+  .price-input {
+    width: 60%;
+  }
+
+  .add-btn {
+    width: 100%;
+  }
 }
