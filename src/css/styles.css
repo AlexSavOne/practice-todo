@@ -87,11 +87,15 @@ body {
 .total-price,
 .spent-price {
   font-size: 18px;
-  color: #56c5f0;
+}
+
+.spent-price {
+  color: #f056de;
 }
 
 .total-price {
   text-align: right;
+  color: #6556f0;
 }
 
 .todo-list {
@@ -134,6 +138,23 @@ body {
 
 .delete-btn:hover {
   background-color: #e55555;
+}
+
+.price {
+  padding: 8px;
+  border: 1px solid #dcdfe3;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 60px;
+  text-align: right;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.price:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
 }
 
 @media (max-width: 768px) {

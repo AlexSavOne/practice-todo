@@ -1,3 +1,5 @@
+// src\js\modules\storage.js
+
 export const loadTasks = (id) => {
   const tasks = JSON.parse(localStorage.getItem(`todo_${id}`)) || [];
   return tasks;

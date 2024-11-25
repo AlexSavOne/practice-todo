@@ -1,3 +1,5 @@
+// src\js\modules\events.js
+
 import { createTodoItem } from './todoItem.js';
 import { saveTasks, loadTasks, saveTitle, loadTitle } from './storage.js';
 import { updatePrices } from './prices.js';
@@ -15,42 +17,43 @@ export const addEventListeners = (container) => {
   const addTask = () => {
     const task = input.value.trim();
     const price = parseFloat(priceInput.value.trim());
-    if (task && !isNaN(price)) {
+    if (task) {
       const todoItem = createTodoItem(task, price, false);
       todoList.append(todoItem);
-      const tasks = Array.from(todoList.children).map((item) => ({
-        text: item.querySelector('span').textContent,
-        price: parseFloat(item.querySelector('.price').textContent) || 0,
-        completed: item.querySelector('input[type="checkbox"]').checked,
-      }));
-      saveTasks(id, tasks);
+      saveCurrentState();
       input.value = '';
       priceInput.value = '';
       updatePrices(todoList, totalPriceEl, spentPriceEl);
     }
   };
 
+  const saveCurrentState = () => {
+    const tasks = Array.from(todoList.children).map((item) => ({
+      text: item.querySelector('span').textContent,
+      price: parseFloat(item.querySelector('.price').value) || 0,
+      completed: item.querySelector('input[type="checkbox"]').checked,
+    }));
+    saveTasks(id, tasks);
+  };
+
   const handleDelete = (e) => {
     if (e.target.classList.contains('delete-btn')) {
       e.target.closest('.todo-item').remove();
-      const tasks = Array.from(todoList.children).map((item) => ({
-        text: item.querySelector('span').textContent,
-        price: parseFloat(item.querySelector('.price').textContent) || 0,
-        completed: item.querySelector('input[type="checkbox"]').checked,
-      }));
-      saveTasks(id, tasks);
+      saveCurrentState();
       updatePrices(todoList, totalPriceEl, spentPriceEl);
     }
   };
 
   const handleCheckboxChange = (e) => {
     if (e.target.type === 'checkbox') {
-      const tasks = Array.from(todoList.children).map((item) => ({
-        text: item.querySelector('span').textContent,
-        price: parseFloat(item.querySelector('.price').textContent) || 0,
-        completed: item.querySelector('input[type="checkbox"]').checked,
-      }));
-      saveTasks(id, tasks);
+      saveCurrentState();
+      updatePrices(todoList, totalPriceEl, spentPriceEl);
+    }
+  };
+
+  const handlePriceEdit = (e) => {
+    if (e.target.classList.contains('price')) {
+      saveCurrentState();
       updatePrices(todoList, totalPriceEl, spentPriceEl);
     }
   };
@@ -61,9 +64,15 @@ export const addEventListeners = (container) => {
       addTask();
     }
   });
+  priceInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      addTask();
+    }
+  });
 
   todoList.addEventListener('click', handleDelete);
   todoList.addEventListener('change', handleCheckboxChange);
+  todoList.addEventListener('input', handlePriceEdit);
 
   title.addEventListener('input', () => {
     saveTitle(id, title.textContent);
@@ -82,3 +91,4 @@ export const addEventListeners = (container) => {
 
   updatePrices(todoList, totalPriceEl, spentPriceEl);
 };
+
